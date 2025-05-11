@@ -1,28 +1,13 @@
-# Visual Studio specific files
-.vs/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
+**/obj/
+**/bin/
+*.nuget.cache
+*.assets.json
 
-# Build results
-bin/
-obj/
+# Ignore IDE and project settings
+*.vs/
+.vscode/
 
-# User-specific files
-*.rsuser
-*.sln.iml
-*.sln.ide
-*.sln.*.user
-*.pdb
-*.log
-
-# Azure Pipelines
-*.coverage
-
-# Logs and temporary files
-*.log
-*.tmp
-
-# Configuration
-appsettings.Development.json
+# Ignore environment variables and sensitive files
+.env
+config.json
+appSettings.json
