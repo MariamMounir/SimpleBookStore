@@ -1,0 +1,28 @@
+# Visual Studio specific files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.sln.iml
+*.sln.ide
+*.sln.*.user
+*.pdb
+*.log
+
+# Azure Pipelines
+*.coverage
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Configuration
+appsettings.Development.json
