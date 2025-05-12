@@ -24,6 +24,17 @@ namespace SimpleVookStore.Controllers
             return View(products);
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

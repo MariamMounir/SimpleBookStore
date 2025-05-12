@@ -14,6 +14,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="@Url.Content("~/css/NavBar.css")">
 </head>
+@RenderSection("Scripts", required: false)
+
 <body>
 
     <!-- Logo and Top Icons -->
@@ -27,10 +29,11 @@
 
     <!-- Nav Links -->
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Bookworm</a>
-        <a href="#">Shop</a>
-        <a href="contact.html">Contact Us</a>
+        <a asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-controller="Home" asp-action="About">About</a>
+        @* <a href="#">Shop</a> *@
+        <a asp-controller="Home" asp-action="Contact">Contact Us</a>
+
     </div>
 
     <!-- Main Content -->
