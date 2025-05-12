@@ -1,0 +1,108 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fff;
+}
+
+/* Navbar block layout */
+.header {
+    text-align: center;
+    padding: 30px 0;
+}
+
+    .header img {
+        width: 120px;
+        height: auto;
+    }
+
+.nav-links {
+    border-top: 3px solid #f4a300;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 15px;
+}
+
+    .nav-links a {
+        text-decoration: none;
+        color: #00a3a5;
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+    }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background-color: #f4a300;
+        }
+
+/* Search + Cart + Login */
+.topbar-icons {
+    position: absolute;
+    right: 30px;
+    top: 25px;
+}
+
+    .topbar-icons input {
+        border: none;
+        border-bottom: 2px solid #f4a300;
+        outline: none;
+        padding: 4px 10px;
+        margin-right: 10px;
+    }
+
+.hero {
+    background-image: url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fit=crop&w=1600&q=80');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+    .hero h1 {
+        font-size: 60px;
+        color: #f4a300;
+        font-weight: bold;
+        text-shadow: 2px 2px #fff;
+    }
+
+.section-title {
+    color: #f4a300;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px 0 30px;
+}
+
+.book-card img {
+    height: 400px;
+}
+
+.btn-outline-primary {
+    border-color: #f4a300;
+    color: #f4a300;
+}
+
+    .btn-outline-primary:hover {
+        border-color: #f4a300;
+        background-color: #f4a300;
+        color: #fff;     
+    }
+ 
+
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}

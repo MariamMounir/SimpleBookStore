@@ -1,141 +1,41 @@
 ﻿@model List<Products>
+@{
+    ViewData["Title"] = "Product List";
+    Layout = "~/Views/Shared/navbar.cshtml";
+}
 
-<h2>Product List</h2>
-<a href="@Url.Action("Add", "Product")" class="btn btn-primary">Add New Product</a>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Image</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Price.ToString("C")</td>
-                <td><img src="@product.ImageUrl" alt="@product.Name" width="50" /></td>
-                <td>
-                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-info">Details</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-
-
-
-
+<!-- Hero Section -->
+<section class="hero">
+    <h1>HAPPY READING!</h1>
+</section>
 
 <section>
-    <h2 class="section-title">NEW BOOKS</h2>
-    <div class="container">
-        <div class="row g-4">
-            <!-- Book 1 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+1" class="card-img-top" alt="Book 1">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">The Silent Patient</h5>
-                        <p class="card-text">$19.99</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 2 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+2" class="card-img-top" alt="Book 2">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Atomic Habits</h5>
-                        <p class="card-text">$16.50</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 3 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+3" class="card-img-top" alt="Book 3">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">The Alchemist</h5>
-                        <p class="card-text">$14.99</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 4 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+4" class="card-img-top" alt="Book 4">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">It Ends With Us</h5>
-                        <p class="card-text">$18.99</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 5 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+5" class="card-img-top" alt="Book 5">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">The 48 Laws of Power</h5>
-                        <p class="card-text">$21.99</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 6 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+6" class="card-img-top" alt="Book 6">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">The Psychology of Money</h5>
-                        <p class="card-text">$13.49</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 7 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+7" class="card-img-top" alt="Book 7">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Rich Dad Poor Dad</h5>
-                        <p class="card-text">$12.75</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Book 8 -->
-            <div class="col-md-3">
-                <div class="card book-card">
-                    <img src="https://via.placeholder.com/300x400?text=Book+8" class="card-img-top" alt="Book 8">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Think Like a Monk</h5>
-                        <p class="card-text">$17.00</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-            </div>
-
+        <h2 class="section-title">NEW BOOKS</h2>
+        <div class="container">
+            <div class="row g-4">
+                 @foreach(var item in Model)
+                 {
+                        <div class="col-md-3">
+                             <div class="card book-card">
+                        <img src="@item.ImageUrl" class="card-img-top" alt="">
+                                <div class="card-body text-center">
+                                     <h5 class="card-title">@item.Name</h5>
+                                    <p class="card-text">@item.Price</p>
+                                     <a href="#" class="btn btn-outline-primary btn-sm">Add to Cart</a>
+                                </div>
+                             </div>
+                        </div>
+           
+                 }
+             </div>
         </div>
-    </div>
 </section>
+
+
+
+
+
+
+
+
+
