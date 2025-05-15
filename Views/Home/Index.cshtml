@@ -12,7 +12,22 @@
 
 <section>
         <h2 class="section-title">EXPLORE BOOKS</h2>
+
+      
+
         <div class="container">
+        <div class="d-flex justify-content-end mb-3">
+            <form method="get">
+                <label for="sortOrder" class="me-2 fw-bold">Sort By:</label>
+                <select name="sortOrder" id="sortOrder" class="form-select w-auto d-inline" onchange="this.form.submit()">
+                    <option value="" selected="@(ViewData["CurrentSort"]?.ToString() == "" ? "selected" : null)">Name (A-Z)</option>
+                    <option value="name_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "selected" : null)">Name (Z-A)</option>
+                    <option value="price_asc" selected="@(ViewData["CurrentSort"]?.ToString() == "price_asc" ? "selected" : null)">Price (Low to High)</option>
+                    <option value="price_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "price_desc" ? "selected" : null)">Price (High to Low)</option>
+                </select>
+            </form>
+
+        </div>
             <div class="row g-4">
             @foreach (var item in Model.Products)
             {
@@ -36,25 +51,26 @@
             @if (Model.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(Model.CurrentPage - 1)">Previous</a>
+                    <a class="page-link" href="?page=@(Model.CurrentPage - 1)&sortOrder=@ViewData["CurrentSort"]">Previous</a>
                 </li>
             }
 
             @for (int i = 1; i <= Model.TotalPages; i++)
             {
                 <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" href="?page=@i">@i</a>
+                    <a class="page-link" href="?page=@i&sortOrder=@ViewData["CurrentSort"]">@i</a>
                 </li>
             }
 
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(Model.CurrentPage + 1)">Next</a>
+                    <a class="page-link" href="?page=@(Model.CurrentPage + 1)&sortOrder=@ViewData["CurrentSort"]">Next</a>
                 </li>
             }
         </ul>
     </nav>
+
 </section>
 
 

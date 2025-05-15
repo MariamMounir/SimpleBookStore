@@ -18,28 +18,42 @@ namespace SimpleVookStore.Controllers
             productService = _productService;
         }
 
-        //public IActionResult Index()
-        //{
-        //    var products = productService.GetAllProducts();
-        //    return View(products);
-        //}
 
-
-
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1, string sortOrder = "")
         {
-            int pageSize = 8; // Adjust how many products per page
-            var products = productService.GetPaginatedProducts(page, pageSize);
-            var totalProducts = productService.GetTotalProductCount();
-            int totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+            int pageSize = 8;
+
+            var allProducts = productService.GetAllProducts(); 
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    allProducts = allProducts.OrderByDescending(p => p.Name).ToList();
+                    break;
+                case "price_asc":
+                    allProducts = allProducts.OrderBy(p => p.Price).ToList();
+                    break;
+                case "price_desc":
+                    allProducts = allProducts.OrderByDescending(p => p.Price).ToList();
+                    break;
+                default:
+                    allProducts = allProducts.OrderBy(p => p.Name).ToList();
+                    break;
+            }
+
+            var totalProducts = allProducts.Count;
+            var paginated = allProducts
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
             var viewModel = new ProductListViewModel
             {
-                Products = products,
+                Products = paginated,
                 CurrentPage = page,
-                TotalPages = totalPages
+                TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize)
             };
 
+            ViewData["CurrentSort"] = sortOrder;
             return View(viewModel);
         }
 
