@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using SimpleVookStore.Data;
 using SimpleVookStore.Models;
 using SimpleVookStore.Repo;
-using SimpleVookStore.Services.Implementaion;
+using SimpleVookStore.Services.Implementation;
 using SimpleVookStore.Services.Interface;
 
-namespace SimpleVookStore
+namespace SimpleVookStore.Services.Implementation
 {
     public class Program
     {

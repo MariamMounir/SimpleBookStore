@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SimpleVookStore.Models;
+
 using SimpleVookStore.Repo;
-using SimpleVookStore.Services.Implementaion;
 using SimpleVookStore.Services.Interface;
 
 namespace SimpleVookStore.Controllers
@@ -18,11 +18,31 @@ namespace SimpleVookStore.Controllers
             productService = _productService;
         }
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    var products = productService.GetAllProducts();
+        //    return View(products);
+        //}
+
+
+
+        public IActionResult Index(int page = 1)
         {
-            var products = productService.GetAllProducts();
-            return View(products);
+            int pageSize = 8; // Adjust how many products per page
+            var products = productService.GetPaginatedProducts(page, pageSize);
+            var totalProducts = productService.GetTotalProductCount();
+            int totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+
+            var viewModel = new ProductListViewModel
+            {
+                Products = products,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
+
+            return View(viewModel);
         }
+
 
         public IActionResult About()
         {
@@ -35,6 +55,8 @@ namespace SimpleVookStore.Controllers
         }
 
 
+
+
         public IActionResult Privacy()
         {
             return View();
@@ -45,5 +67,10 @@ namespace SimpleVookStore.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
     }
+
+
 }
