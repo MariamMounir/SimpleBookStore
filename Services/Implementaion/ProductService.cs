@@ -2,20 +2,30 @@
 using SimpleVookStore.Repo;
 using SimpleVookStore.Services.Interface;
 
-namespace SimpleVookStore.Services.Implementaion
+public class ProductService : IProductService
 {
-    public class ProductService: IProductService
+    private readonly GenericRepo<Products> _productRepo;
+
+    public ProductService(GenericRepo<Products> productRepo)
     {
-        private readonly GenericRepo<Products> _productRepo;
+        _productRepo = productRepo;
+    }
 
-        public ProductService(GenericRepo<Products> productRepo)
-        {
-            _productRepo = productRepo;
-        }
+    public List<Products> GetAllProducts()
+    {
+        return _productRepo.GetAll();
+    }
 
-        public List<Products> GetAllProducts()
-        {
-            return _productRepo.GetAll();
-        }
+    public List<Products> GetPaginatedProducts(int pageNumber, int pageSize)
+    {
+        return _productRepo.GetAll()
+                           .Skip((pageNumber - 1) * pageSize)
+                           .Take(pageSize)
+                           .ToList();
+    }
+
+    public int GetTotalProductCount()
+    {
+        return _productRepo.GetAll().Count;
     }
 }

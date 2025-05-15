@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SimpleVookStore.Models;
+
 using SimpleVookStore.Repo;
-using SimpleVookStore.Services.Implementaion;
 using SimpleVookStore.Services.Interface;
 
 namespace SimpleVookStore.Controllers
@@ -18,11 +18,45 @@ namespace SimpleVookStore.Controllers
             productService = _productService;
         }
 
-        public IActionResult Index()
+
+        public IActionResult Index(int page = 1, string sortOrder = "")
         {
-            var products = productService.GetAllProducts();
-            return View(products);
+            int pageSize = 8;
+
+            var allProducts = productService.GetAllProducts(); 
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    allProducts = allProducts.OrderByDescending(p => p.Name).ToList();
+                    break;
+                case "price_asc":
+                    allProducts = allProducts.OrderBy(p => p.Price).ToList();
+                    break;
+                case "price_desc":
+                    allProducts = allProducts.OrderByDescending(p => p.Price).ToList();
+                    break;
+                default:
+                    allProducts = allProducts.OrderBy(p => p.Name).ToList();
+                    break;
+            }
+
+            var totalProducts = allProducts.Count;
+            var paginated = allProducts
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var viewModel = new ProductListViewModel
+            {
+                Products = paginated,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalProducts / (double)pageSize)
+            };
+
+            ViewData["CurrentSort"] = sortOrder;
+            return View(viewModel);
         }
+
 
         public IActionResult About()
         {
@@ -35,6 +69,8 @@ namespace SimpleVookStore.Controllers
         }
 
 
+
+
         public IActionResult Privacy()
         {
             return View();
@@ -45,5 +81,10 @@ namespace SimpleVookStore.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
     }
+
+
 }
