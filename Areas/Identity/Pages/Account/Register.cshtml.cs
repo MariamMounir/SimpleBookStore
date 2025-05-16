@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using SimpleVookStore.Models;
+using SimpleVookStore.Repo;
+
 
 namespace SimpleBookStore.Areas.Identity.Pages.Account
 {
@@ -29,13 +32,18 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly GenericRepo<Cart> Cartrepo;
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+
+            IEmailSender emailSender,
+            GenericRepo<Cart> _Cartrepo)
+
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +51,8 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            Cartrepo = _Cartrepo;
+
         }
 
         /// <summary>
@@ -124,6 +134,14 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var cart= new Cart()
+                    {
+                        UserId = userId
+                    };
+                    Cartrepo.Add(cart);
+                    Cartrepo.save();
+
 
                     // تأكيد البريد الإلكتروني تلقائيًا
                     var confirmResult = await _userManager.ConfirmEmailAsync(user, code);

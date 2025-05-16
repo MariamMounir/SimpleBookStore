@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleBookStore.Services.Implementaion;
+using SimpleBookStore.Services.Interface;
 using SimpleVookStore.Data;
 using SimpleVookStore.Models;
 using SimpleVookStore.Repo;
@@ -24,7 +26,13 @@ namespace SimpleVookStore.Services.Implementation
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<GenericRepo<Products>>();
+            builder.Services.AddScoped<GenericRepo<Cart>>();
+            builder.Services.AddScoped<GenericRepo<CartItems>>();
+
             builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddHttpContextAccessor();
+
 
 
             builder.Services.AddControllersWithViews();

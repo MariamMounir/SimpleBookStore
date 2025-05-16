@@ -3,6 +3,25 @@
     background-color: #fff;
 }
 
+.user-greeting {
+    font-weight: 600;
+    color: #333333;
+    font-size: 1.1rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    margin:4px;
+    cursor:pointer;
+}
+
+    .user-greeting:hover,
+    .user-greeting:focus {
+        background-color: #f4a300;
+        color: white;
+        text-decoration: none;
+        outline: none;
+    }
 /* Navbar block layout */
 .header {
     text-align: center;
