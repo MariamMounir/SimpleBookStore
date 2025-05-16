@@ -13,7 +13,8 @@ public class ProductService : IProductService
 
     public List<Products> GetAllProducts()
     {
-        return _productRepo.GetAll();
+        var products = _productRepo.GetAll().ToList();
+        return products;
     }
 
     public List<Products> GetPaginatedProducts(int pageNumber, int pageSize)
@@ -26,6 +27,6 @@ public class ProductService : IProductService
 
     public int GetTotalProductCount()
     {
-        return _productRepo.GetAll().Count;
+        return _productRepo.GetAll().Count();
     }
 }

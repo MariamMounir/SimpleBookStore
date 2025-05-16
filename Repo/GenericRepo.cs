@@ -11,9 +11,9 @@ namespace SimpleVookStore.Repo
             db = _db;
         }
 
-        public List<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            return db.Set<TEntity>().ToList();
+            return db.Set<TEntity>();
         }
         public TEntity GetById(int id)
         {
