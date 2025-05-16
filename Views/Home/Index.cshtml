@@ -37,10 +37,11 @@
                         <div class="card-body text-center">
                             <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">@item.Price</p>
-                            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
-                                <input type="hidden" name="productId" value="@item.Id" />
-                                <button type="submit" class="btn btn-outline-primary btn-sm">Add to Cart</button>
-                            </form>
+
+
+                            <button type="button" class="btn btn-outline-primary btn-sm add-to-cart" data-product-id="@item.Id">Add to Cart</button>
+
+
                         </div>
                     </div>
                 </div>
@@ -75,6 +76,12 @@
     </nav>
 
 </section>
+
+@section Scripts {
+    <script src="~/js/AddtoCart.js"></script>
+
+}
+
 
 
 
