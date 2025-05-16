@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using SimpleVookStore.Models;
 using SimpleVookStore.Repo;
 
+
 namespace SimpleBookStore.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
@@ -33,13 +34,16 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
         private readonly IEmailSender _emailSender;
         private readonly GenericRepo<Cart> Cartrepo;
 
+
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
+
             IEmailSender emailSender,
             GenericRepo<Cart> _Cartrepo)
+
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -48,6 +52,7 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             Cartrepo = _Cartrepo;
+
         }
 
         /// <summary>
@@ -136,6 +141,7 @@ namespace SimpleBookStore.Areas.Identity.Pages.Account
                     };
                     Cartrepo.Add(cart);
                     Cartrepo.save();
+
 
                     // تأكيد البريد الإلكتروني تلقائيًا
                     var confirmResult = await _userManager.ConfirmEmailAsync(user, code);
