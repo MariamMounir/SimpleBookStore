@@ -19,7 +19,9 @@ namespace SimpleBookStore.Controllers
             var cartItems = cartService.GetCartItems();
             if (cartItems == null)
             {
+
                 cartItems = new List<CartItems>(); 
+
             }
             return View(cartItems);
         }
@@ -27,6 +29,7 @@ namespace SimpleBookStore.Controllers
         [HttpPost]
         public IActionResult AddToCart(int productId)
         {
+
             try
             {
                 cartService.AddToCart(productId, 1);
@@ -36,6 +39,7 @@ namespace SimpleBookStore.Controllers
             {
                 return Json(new { success = false, message = "Error: " + ex.Message });
             }
+
         }
 
         [HttpPost]
