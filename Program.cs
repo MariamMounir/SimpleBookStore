@@ -28,9 +28,11 @@ namespace SimpleVookStore.Services.Implementation
             builder.Services.AddScoped<GenericRepo<Products>>();
             builder.Services.AddScoped<GenericRepo<Cart>>();
             builder.Services.AddScoped<GenericRepo<CartItems>>();
+            builder.Services.AddScoped<GenericRepo<Checkout>>();
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICheckoutService, CheckoutService>();
             builder.Services.AddHttpContextAccessor();
 
 
