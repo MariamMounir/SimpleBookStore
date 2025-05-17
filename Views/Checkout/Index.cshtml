@@ -1,0 +1,132 @@
+﻿@model List<CartItems>
+@{
+	ViewData["Title"] = "Checkout";
+	Layout = "~/Views/Shared/navbar.cshtml";
+    decimal subtotal = 0;
+    decimal shipping = 5.00m;
+}
+
+<!-- Checkout Form -->
+<div class="container my-5">
+    <h2 class="mb-4">Checkout</h2>
+    <div class="row">
+        <!-- Billing Info -->
+        <div class="col-md-7">
+            <form id="checkoutForm" novalidate>
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName" required pattern=".{3,}" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" required pattern="^\+?\d{10,15}$" />
+                    <small class="text-muted">Include country code, e.g. +201234567890</small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" required />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="governorate" class="form-label">Governorate</label>
+                        <select class="form-select" id="governorate" required>
+                            <option value="" selected disabled>Select Governorate</option>
+                            <option>Cairo</option>
+                            <option>Giza</option>
+                            <option>Alexandria</option>
+                            <option>Qalyubia</option>
+                            <option>Sharqia</option>
+                            <option>Monufia</option>
+                            <option>Beheira</option>
+                            <option>Dakahlia</option>
+                            <option>Fayoum</option>
+                            <option>Kafr El Sheikh</option>
+                            <option>Gharbia</option>
+                            <option>Ismailia</option>
+                            <option>Aswan</option>
+                            <option>Asyut</option>
+                            <option>Luxor</option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Shipping Address</label>
+                    <textarea class="form-control" id="address" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Place Order</button>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Order Summary</h5>
+                </div>
+                <div class="card-body">
+					@foreach (var item in Model)
+					{
+                        subtotal += item.Price * item.Quantity;
+						<div class="d-flex justify-content-between mb-2">
+							<div>
+								<h6>@item.Product.Name</h6>
+								<p>Quantity: @item.Quantity</p>
+							</div>
+							<p>$@item.Price</p>
+						</div>
+					}
+                    <p>Subtotal: <strong>$@subtotal</strong></p>
+                    <p>Shipping: <strong>$@shipping</strong></p>
+                    <hr>
+                    <p>Total: <strong>$@(subtotal + shipping)</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const address = document.getElementById('address').value.trim();
+
+      if (!address) {
+        alert('Please enter your shipping address.');
+        return;
+      }
+      const formData = new FormData();
+      formData.append('address', address);
+
+      fetch('/Checkout/CreateCheckout', {
+       method: 'POST',
+       body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+           toastr.success('Order placed successfully!');
+           window.location.href = '/';
+        } else {
+           toastr.error('Failed to place order. Please try again.');
+        }
+      })
+      .catch(error => {
+        toastr.error('Error: ' + error);
+      });
+    });
+    });
+</script>
